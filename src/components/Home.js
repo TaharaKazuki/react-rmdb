@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React, { useState, useEffect } from 'react'
 
 import HeroImage from './elements/HeroImage'
 import SearchBar from './elements/SearchBar'
@@ -8,16 +7,23 @@ import MovieThumb from './elements/MovieThumb'
 import LoadMoreBtn from './elements/LoadMoreBtn'
 import Spinner from './elements/Spinner'
 
+import { useHomeFetch } from './hooks/useHomeFetch'
 
-const Home = () => (
-  <>
-    <HeroImage />
-    <SearchBar />
-    <Grid />
-    <MovieThumb />
-    <Spinner />
-    <LoadMoreBtn />
-  </>
-)
+
+const Home = () => {
+  const [{ state, loading, error }, fetchMovies] = useHomeFetch()
+  console.info('state', state)  
+
+  return (
+    <>
+      <HeroImage />
+      <SearchBar />
+      <Grid />
+      <MovieThumb />
+      <Spinner />
+      <LoadMoreBtn />
+    </>
+  )
+}
 
 export default Home
