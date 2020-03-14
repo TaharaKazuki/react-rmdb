@@ -50,7 +50,8 @@ const Home = () => {
   
 
   if (error) return <div>Something went wrong ...</div>
-  
+
+  // fetch error 
   if (!movies[0]) return (
     <>
       <SearchBar callback={searchMovies} />
