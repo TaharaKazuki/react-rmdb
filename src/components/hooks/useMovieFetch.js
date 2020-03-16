@@ -14,9 +14,17 @@ export const useMovieFetch = movieId => {
     try {
       const endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}`
       const result = await (await fetch(endpoint)).json()
-      console.info('result', result)
+      const creditsEndpoint = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`
+      const creditsResult = await (await fetch(creditsEndpoint)).json()
+      const directors = creditsResult.crew.filter(
+        member => member.job === 'Director'
+      )
 
-      const creditsEndpoint = `{}`
+      setState({
+        ...result,
+        actors: creditsResult.cast,
+        directors
+      })
 
     } catch (error) {
       setError(true)
@@ -25,5 +33,9 @@ export const useMovieFetch = movieId => {
 
   }, [movieId])
 
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
+  return [state, loading, error]
 }
