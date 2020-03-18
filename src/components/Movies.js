@@ -1,6 +1,7 @@
 import React from 'react'
 
 import MovieInfo from './elements/MovieInfo'
+import MovieInfoBar from './elements/MovieInfoBar'
 import Navigation from './elements/Navigation'
 import Actor from './elements/Actor'
 import Grid from './elements/Grid'
@@ -20,8 +21,15 @@ const Movies = ({ movieId }) => {
     <>
       <Navigation movie={movie.original_title} />
       <MovieInfo movie={movie} />
-      <Grid>
-        <Actor />
+      <MovieInfoBar 
+        time={movie.time}
+        budget={movie.budget}
+        revenue={movie.revenue}
+      />
+      <Grid header='Actors'>
+        {movie.actors.map(actor=> (
+          <Actor key={actor.credit_id} actor={actor} />
+        ))}
       </Grid>
     </>
   )
